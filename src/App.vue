@@ -87,8 +87,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        padding: 0 15px;
     }
     .app {
-        width: 800px;
+        width: 100%;
+        max-width: 800px;
     }
 </style>
