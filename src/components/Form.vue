@@ -1,17 +1,18 @@
-<script setup>
+<script setup lang="ts">
     import { ref } from 'vue';
+    import { ITodoItem } from '@/types';
 
-    const text = ref("");
-    const priority = ref("low");
+    const text = ref<string>("");
+    const priority = ref<string>("low");
     const sortOptions = ['low', 'high'];
-    const todoList = defineModel('todoList');
+    const todoList = defineModel<ITodoItem[]>('todoList');
 
     const handleSubmit = () => {
         if(text.value.length === 0) {
             return
         }
 
-        const newTodoItem = {
+        const newTodoItem: ITodoItem = {
             id: Date.now(),
             task: text.value, 
             priority: priority.value,

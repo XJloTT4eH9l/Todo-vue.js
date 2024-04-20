@@ -1,6 +1,9 @@
-<script setup>
+<script setup lang="ts">
+    import type { PropType } from 'vue'
+    import { ITodoItem } from '@/types'
+
     defineProps({ 
-        todo: Object
+        todo: Object as PropType<ITodoItem>
     });
 </script>
 
@@ -17,7 +20,7 @@
                 type="text"
                 class="todo-item__text"
                 :value="todo.task"
-                @change="$emit('editTodo', todo.id, $event.target.value)"
+                @change="$emit('editTodo', todo.id, ($event.target as HTMLInputElement).value)"
             >
         </div>
         <button class="btn todo-item__delete-btn" @click="$emit('deleteTodo', todo.id)">Delete</button>

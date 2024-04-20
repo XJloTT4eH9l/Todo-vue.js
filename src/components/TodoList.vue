@@ -1,15 +1,16 @@
-<script setup>
+<script setup lang="ts">
     import { ref, watch } from 'vue';
+    import { ITodoItem } from '@/types';
 
     import TodoItem from './TodoItem.vue';
 
-    const todoList = defineModel('todoList');
+    const todoList = defineModel<ITodoItem[]>('todoList');
     const sortActiveOption = ref('');
 
-    const deleteTodo = (id) => {
+    const deleteTodo = (id: number) => {
         todoList.value =  todoList.value.filter(todo => todo.id !== id);
     }
-    const changeStatusTodo = (id) => {
+    const changeStatusTodo = (id: number) => {
         todoList.value = todoList.value.map(todo => {
             if(todo.id === id) {
                 const newStatus = !todo.completed;
@@ -20,7 +21,7 @@
             }
         });
     }
-    const editTodo = (id, value) => {
+    const editTodo = (id: number, value: string) => {
         todoList.value = todoList.value.map(todo => {
             if(todo.id === id) {
                 return {...todo, task: value}
@@ -29,7 +30,7 @@
             }
         });
     }
-    const sortTodos = (option) => {
+    const sortTodos = (option :string) => {
         switch(option) {
             case 'high':
                 todoList.value = todoList.value.sort((a, b) => a.priority.localeCompare(b.priority));
@@ -49,7 +50,7 @@
 
 <template>
     <div v-if="todoList.length > 0" class="todo-list__container">
-        <select v-model="sortActiveOption">
+        <select class="todo-list__select" v-model="sortActiveOption">
             <option value="" disabled selected>Sorting</option>
             <option value="low">From low</option>
             <option value="high">From high</option>
@@ -65,7 +66,7 @@
             />
         </ul>
     </div>
-    <h2 v-else>No tasks</h2>
+    <h2 class="todo-list__title" v-else>No tasks</h2>
 </template>
 
 <style lang="scss">
@@ -76,11 +77,11 @@
             flex-direction: column;
             align-items: end;
         }
-    }
-    h2 {
-        text-align: center;
-    }
-    select {
-        margin-bottom: 16px;
+        &__title {
+            text-align: center;
+        }
+        &__select {
+            margin-bottom: 16px;
+        }
     }
 </style>

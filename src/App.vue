@@ -1,11 +1,11 @@
-<script setup>
-    import { ref, onMounted, watch } from 'vue';
-
+<script setup lang="ts">
+    import { ref, onMounted, watch } from 'vue'
+    import { ITodoItem } from '@/types'
     import Header from './components/Header.vue'
     import Form from './components/Form.vue'
     import TodoList from './components/TodoList.vue'
 
-    const todoList = ref([]);
+    const todoList = ref<ITodoItem[]>([]);
 
     watch(todoList, (newList) => {
         localStorage.setItem('todoList', JSON.stringify(newList));
