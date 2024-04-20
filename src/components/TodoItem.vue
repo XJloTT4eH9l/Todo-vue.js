@@ -5,6 +5,12 @@
     defineProps({ 
         todo: Object as PropType<ITodoItem>
     });
+    
+    const emit = defineEmits<{
+        deleteTodo: [id: number],
+        changeStatusTodo: [id: number],
+        editTodo: [id: number, value: string]
+    }>()
 </script>
 
 <template>
